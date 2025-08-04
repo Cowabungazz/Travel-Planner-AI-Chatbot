@@ -1,4 +1,4 @@
-<img width="1481" height="264" alt="image" src="https://github.com/user-attachments/assets/051ceed4-b513-4533-ac88-c4f1c54b0462" /># Travel-Planner-AI-Chatbot
+# Travel-Planner-AI-Chatbot
 Personalised travel recommendations -> planning -> booking
 
 # Backend Demo
