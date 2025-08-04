@@ -10,7 +10,7 @@ Personalised travel recommendations -> planning -> booking
 6. postman environment
 7. postman collection
 
-# Context Storage and Retrieval: PINECONE for vector database
+# Context Storage and Context Retrieval: PINECONE for vector database
 How to decide which goes where?
 Define only for postgres for persistent storage and temporary storage, if not defined all will go to either vector database or temporary vector embeddings
 
@@ -33,6 +33,13 @@ User message:
 Chat response:
 -> always temporary embeddings: using tool
 
+# User Context -> RAG:
+1. User Context
+2. Retrieve relevant documents/passages from a knowledge source (vector DB, search index, files, web).
+3. Augment the model’s prompt with those snippets.
+4. Generate the answer using both the query and the retrieved context.
+<img width="286" height="240" alt="image" src="https://github.com/user-attachments/assets/236348a9-8534-4bf3-bbe7-ef183e9bcdfa" />
+ 
 # Register A User:
 1️⃣ Checks if the username already exists.
 If it does, an error is returned: "Username already exists"
