@@ -20,7 +20,9 @@ Stores the username and hashed password in the database.
 4️⃣ Saves the new user.
 Ensures the user can log in later.
 5️⃣ Sends a confirmation message.
+
 Response: { "message": "User registered successfully" }
+
 <img width="1481" height="264" alt="image" src="https://github.com/user-attachments/assets/b4d80c53-e6a6-40b7-8797-d5e4601a54ed" />
 
 Logging in (Obtain Access Token):
@@ -51,7 +53,9 @@ If invalid, an error is returned: "Invalid authentication".
 2️⃣ Fetches all chat sessions linked to the user.
 Retrieves session data from the database.
 3️⃣ Formats and sends the data.
+
 Response: { "sessions": [ { "session_id": 1, "created_at": "2025-02-19T12:00:00" } ] }
+
 <img width="1476" height="948" alt="image" src="https://github.com/user-attachments/assets/ac9eb075-d28c-4cf5-b26f-870c9940bea8" />
 
 Get All Chat Sessions of User:
@@ -62,7 +66,9 @@ If not, an error is returned: "Chat session not found".
 3️⃣ Fetches messages in order.
 Retrieves all messages linked to the session.
 4️⃣ Sends messages back.
+
 Response: { "session_id": 1, "messages": [ { "id": 1, "role": "user", "content": "Hello" } ] }
+
 <img width="1480" height="366" alt="image" src="https://github.com/user-attachments/assets/363595b3-bdaf-43df-9b53-82ea3b39a136" />
 
 Get All Messages from A Chat Session of A User:
@@ -84,6 +90,7 @@ recommend_products () formats a response based on products returned from BMG API
 Response is saved in database
 Refer to Context Storage and Retrieval**
 5️⃣ Sends back the message details based on the entire conversation history.
+
 Response: {
   "id": "aTYTg72tpp5wmZAW",
   "createdAt": "Wed Feb 26 2025 23:25:43 GMT+0800 (Singapore Standard Time)",
@@ -97,7 +104,9 @@ Response: {
   ],
   "revisionId": "32HEhK3GLGyzQaEP"
 }
+
 5️⃣ Sends back the message details with data fetched from the tool.
+
 Response: {
   "id": "pEYkEtWqqo1tTkcR",
   "createdAt": "Wed Feb 26 2025 23:31:43 GMT+0800 (Singapore Standard Time)",
@@ -165,6 +174,7 @@ Response: {
   ],
   "revisionId": "cOBlDkfhsrdJtIli"
 }
+
 <img width="1478" height="415" alt="image" src="https://github.com/user-attachments/assets/0b31ca4f-4ec1-4330-b416-0aeb23dde0e6" />
 
 # Context Storage and Retrieval: PINECONE
