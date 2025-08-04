@@ -1,0 +1,7 @@
+local:
+  # basket_manager: {}
+  activity_recommendation: {}
+  # retrieve_user_context: {}
+  # update_session_context: {}
+  # update_user_embeddings: {}
+  # update_user_preferene: {}

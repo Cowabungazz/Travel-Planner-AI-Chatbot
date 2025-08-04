@@ -1,0 +1,263 @@
+{
+	"info": {
+		"_postman_id": "0598ad51-d310-4c06-a058-1c5306f65ce7",
+		"name": "TravelAI",
+		"description": "- **Set up environment variables (****`base_url`****,** **`token`****,** **`session_id`****).**\n    \n- **Run requests in order:**\n    \n    1. Register a user\n        \n    2. Get a token\n        \n    3. Create a chat session\n        \n    4. Send a chat message\n        \n    5. Get chat sessions",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33077425"
+	},
+	"item": [
+		{
+			"name": "Register A User",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/auth/register?username=user4&password=password4",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"register"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "user4"
+						},
+						{
+							"key": "password",
+							"value": "password4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtain An Access Token aka Logging in",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "user3",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "password3",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/api/auth/token",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a New Chat Session",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/llm/chat/new_session",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"llm",
+						"chat",
+						"new_session"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Send a Message in Chat Session",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"session_id\": \"{{session_id}}\",\r\n  \"messages\": [\r\n    {\"role\": \"user\", \"content\": \"i want to go to singapore\"}\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/llm/chat/chat",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"llm",
+						"chat",
+						"chat"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Chat Sessions",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/llm/chat/sessions",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"llm",
+						"chat",
+						"sessions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Messages from A Chat Session",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/llm/chat/messages/{{session_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"llm",
+						"chat",
+						"messages",
+						"{{session_id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"// pm.sendRequest({\r",
+					"//     url: pm.environment.get(\"base_url\") + \"/api/auth/token\",\r",
+					"//     method: \"POST\",\r",
+					"//     header: {\r",
+					"//         \"Content-Type\": \"application/x-www-form-urlencoded\"\r",
+					"//     },\r",
+					"//     body: {\r",
+					"//         mode: \"urlencoded\",\r",
+					"//         urlencoded: [\r",
+					"//             { key: \"username\", value: \"testuser\" },\r",
+					"//             { key: \"password\", value: \"securepassword\" }\r",
+					"//         ]\r",
+					"//     }\r",
+					"// }, function (err, res) {\r",
+					"//     if (!err) {\r",
+					"//         var jsonResponse = res.json();\r",
+					"//         pm.environment.set(\"token\", jsonResponse.access_token);\r",
+					"//     }\r",
+					"// });\r",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
