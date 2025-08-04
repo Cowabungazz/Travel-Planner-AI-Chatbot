@@ -10,7 +10,30 @@ Personalised travel recommendations -> planning -> booking
 6. postman environment
 7. postman collection
 
-Register A User:
+# Context Storage and Retrieval: PINECONE for vector database
+How to decide which goes where?
+Define only for postgres for persistent storage and temporary storage, if not defined all will go to either vector database or temporary vector embeddings
+
+Flow:
+Postgres for persistent storage will always be used as context
+Temporary storage will always be used for context
+Vector database will be queried for relevant context
+Temporary vector embeddings will be queried for relevant context
+
+Updates to context storage (else add):
+Update defined keys in persistent storage if spotted (need to ownself implement with external package)
+Else goes to either vector database or temporary vector embeddings and replaces the vector
+
+User message:
+-> persistent storage: using tool
+-> temporary storage: using tool
+-> persistent embeddings: using tool
+-> temporary embeddings: using tool
+
+Chat response:
+-> always temporary embeddings: using tool
+
+# Register A User:
 1️⃣ Checks if the username already exists.
 If it does, an error is returned: "Username already exists"
 2️⃣ Encrypts the password.
@@ -25,7 +48,7 @@ Response: { "message": "User registered successfully" }
 
 <img width="1481" height="264" alt="image" src="https://github.com/user-attachments/assets/b4d80c53-e6a6-40b7-8797-d5e4601a54ed" />
 
-Logging in (Obtain Access Token):
+# Logging in (Obtain Access Token):
 1️⃣ Checks if the username exists.
 If not, an error is returned: "Invalid username or password".
 2️⃣ Verifies the password.
@@ -36,7 +59,7 @@ This token allows the user to access the system securely.
 Response: { "access_token": "<TOKEN_HERE>", "token_type": "bearer" }
 <img width="1477" height="285" alt="image" src="https://github.com/user-attachments/assets/419eaf6e-27d5-4f25-aa63-d8a5df056201" />
 
-Create A New Chat Session for User:
+# Create A New Chat Session for User:
 1️⃣ Verifies the user token.
 If invalid, an error is returned: "Invalid authentication".
 2️⃣ Creates a new chat session.
@@ -47,7 +70,7 @@ Ensures the user can continue the conversation later.
 Response: { "session_id": "<new_session_id>" }
 <img width="1483" height="258" alt="image" src="https://github.com/user-attachments/assets/205f7a74-fbce-4024-bb78-61dbcfb6bc71" />
 
-Sending Message In Chat Session:
+# Sending Message In Chat Session:
 1️⃣ Verifies the user token.
 If invalid, an error is returned: "Invalid authentication".
 2️⃣ Fetches all chat sessions linked to the user.
@@ -58,7 +81,7 @@ Response: { "sessions": [ { "session_id": 1, "created_at": "2025-02-19T12:00:00"
 
 <img width="1476" height="948" alt="image" src="https://github.com/user-attachments/assets/ac9eb075-d28c-4cf5-b26f-870c9940bea8" />
 
-Get All Chat Sessions of User:
+# Get All Chat Sessions of User:
 1️⃣ Verifies the user token.
 If invalid, an error is returned: "Invalid authentication".
 2️⃣ Checks if the session exists and belongs to the user.
@@ -71,7 +94,7 @@ Response: { "session_id": 1, "messages": [ { "id": 1, "role": "user", "content":
 
 <img width="1480" height="366" alt="image" src="https://github.com/user-attachments/assets/363595b3-bdaf-43df-9b53-82ea3b39a136" />
 
-Get All Messages from A Chat Session of A User:
+# Get All Messages from A Chat Session of A User:
 1️⃣ Verifies the user token.
 If invalid, an error is returned: "Invalid authentication".
 2️⃣ Checks if the session exists and belongs to the user.
@@ -177,28 +200,7 @@ Response: {
 
 <img width="1478" height="415" alt="image" src="https://github.com/user-attachments/assets/0b31ca4f-4ec1-4330-b416-0aeb23dde0e6" />
 
-# Context Storage and Retrieval: PINECONE
-How to decide which goes where?
-Define only for postgres for persistent storage and temporary storage, if not defined all will go to either vector database or temporary vector embeddings
 
-Flow:
-Postgres for persistent storage will always be used as context
-Temporary storage will always be used for context
-Vector database will be queried for relevant context
-Temporary vector embeddings will be queried for relevant context
-
-Updates to context storage (else add):
-Update defined keys in persistent storage if spotted (need to ownself implement with external package)
-Else goes to either vector database or temporary vector embeddings and replaces the vector
-
-User message:
--> persistent storage: using tool
--> temporary storage: using tool
--> persistent embeddings: using tool
--> temporary embeddings: using tool
-
-Chat response:
--> always temporary embeddings: using tool
 
 
 
